@@ -5,277 +5,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script language="JavaScript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        var windowHeight = $(window).height(),
+    　　$body = $("body");
+    　　$body.css("height", windowHeight); //重要代码
+        $("body").on("touchstart", function(e) {
+    　　　　e.preventDefault();
+    　　　　startX = e.originalEvent.changedTouches[0].pageX,
+    　　　　startY = e.originalEvent.changedTouches[0].pageY;
+    　　});
+    　　$("body").on("touchmove", function(e) {
+    　　　　e.preventDefault();
+    　　　　moveEndX = e.originalEvent.changedTouches[0].pageX,
+    　　　　moveEndY = e.originalEvent.changedTouches[0].pageY,
+    　　　　X = moveEndX - startX,
+    　　　　Y = moveEndY - startY;
+    
+    　　　　if ( Math.abs(X) > Math.abs(Y) && X > 0 ) {
+    　　　　　　alert("left 2 right");
+    　　　　}
+    　　　　else if ( Math.abs(X) > Math.abs(Y) && X < 0 ) {
+    　　　　　　alert("right 2 left");
+    　　　　}
+    　　　　else if ( Math.abs(Y) > Math.abs(X) && Y > 0) {
+    　　　　　　alert("top 2 bottom");
+    　　　　}
+    　　　　else if ( Math.abs(Y) > Math.abs(X) && Y < 0 ) {
+    　　　　　　alert("bottom 2 top");
+    　　　　}
+    　　　　else{
+    　　　　　　alert("just touch");
+    　　　　}
+    　　});
+    　　
+    </script>
 </head>
 
+
 <style>
-    .nav{
-        width: 330px;
-        background-color: rgb(241, 241, 241);
-        border-radius: 20px;
-        padding: 20px;
-        text-align: center;
-        margin: 0 auto;
-        margin-top: 20px;
-    }
-    .title{
-        font-size: larger;
-        font-weight: bold;
-        margin: 0 auto;
-        text-align: center;
-        margin-top: 20px;
-    }
-    .hint{
-        text-align: center;
-        color: rgb(200, 200, 200);
-        margin-top: 20px;
-    }
-    .applicant{
-        font-size: larger;
-        font-weight: bold;
-        margin-bottom: 20px;
-        margin-top: 5px;
-        color: rgb(42, 42, 42);
-    }
-    input{
-        border: none;
-        height: 40px;
-        width: 200px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        padding-left: 15px;
-        border-radius: 60px;
-        margin-right: 5px;
-    }
-    #subBtn{
-        border: none;
-        width: 150px;
-        height: 40px;
-        background-color: rgb(0, 128, 255);
-        margin-top: 20px;
-        float: right;
-        border-radius: 90px;
-        font-size: 18px;
-        color: rgba(255, 255, 255, 0.93);
-        font-weight: bold;
-        box-shadow: 2px 2px 3px #88888897;
-        margin-bottom: 30px;
-    }
-    .sex{
-        width: 13px;
-        height: 13px;
-        margin: 0;
-        padding: 0;
-        margin-top: 20px;
-    }
-    .birth{
-        width: 50px;
-        height: 30px;
-        text-align: center;
-        padding: 0;
-    }
-    .tianchong,.tianchong2{
-        position: absolute;
-        margin-top: 335px;
-        margin-left: -180px;
-        border: none;
-        background-color: rgb(204, 241, 255);
-        border-radius: 10px;
-        color: rgb(0, 139, 170);
-        padding: 5px;
-    }
-    .mattersBtn{
-        width: 13px;
-        height: 13px;
-        display: none;
-    }
-    .matters{
-        /* line-height: 50px; */
-        margin-bottom: 20px;
-        border-radius: 90px;
-        background-color: rgb(255, 255, 255);
-        padding-right: 20px;
-        padding-left: 20px;
-        height: 50px;
-        width: 260px;
-        display:table;
-    }
-    label{
-        display:table-cell;
-        vertical-align:middle;
-    }
-    #matters-box{
-        width: 300px;
-        margin-left: 15px;
-        text-align: center;
-        justify-content: center;
-    }
-    .fact,.matters-text{
-        width: 300px;
-        border-radius: 10px;
-        height: 100px;
-        padding: 10px;
-        margin-top: 5px;
-        border: none;
-    }
-    .matters-text{
-        margin-left: -10px;
-    }
-    .uploadBtn{
-        /* width: 20px;
-        height: 10px;
-        background-color: #bfa; */
+    body{
+        width: 100%;
+        height: 100%;
+        background-color: aqua;
     }
 </style>
 
-<script>
-    function getBirth(){
-        var a=document.getElementById("idCard1").value;
-        var year1 = a.slice(6,10);
-        var month1 = a.slice(10,12);
-        var day1 = a.slice(12,14);
-        document.getElementById('year1').value=year1;
-        document.getElementById('month1').value=month1;
-        document.getElementById('day1').value=day1;
-    }
-    function getBirth2(){
-        var a2=document.getElementById("idCard2").value;
-        var year2 = a2.slice(6,10);
-        var month2 = a2.slice(10,12);
-        var day2 = a2.slice(12,14);
-        document.getElementById('year2').value=year2;
-        document.getElementById('month2').value=month2;
-        document.getElementById('day2').value=day2;
-    }
-    function checkIt(){
-        var check1 = document.getElementById('Btn1');
-        var check2 = document.getElementById('Btn2');
-        var check3 = document.getElementById('Btn3');
-        var check4 = document.getElementById('Btn4');
-        if(check1.checked){
-            var style1 = document.getElementById('matters1');
-            style1.style.backgroundColor = "rgb(255, 92, 92)";
-            style1.style.color = "#fff";
-            style1.style.transition = "all 0.1s";
-        }if(!check1.checked){
-            var style1 = document.getElementById('matters1');
-            style1.style.color = "rgb(0, 0, 0)";
-            style1.style.backgroundColor = "#fff";
-        }
-        if(check2.checked){
-            var style2 = document.getElementById('matters2');
-            style2.style.backgroundColor = "rgb(255, 92, 92)";
-            style2.style.color = "#fff";
-            style2.style.transition = "all 0.1s";
-        }if(!check2.checked){
-            var style2 = document.getElementById('matters2');
-            style2.style.color = "rgb(0, 0, 0)";
-            style2.style.backgroundColor = "#fff";
-        }
-        if(check3.checked){
-            var style3 = document.getElementById('matters3');
-            style3.style.backgroundColor = "rgb(255, 92, 92)";
-            style3.style.color = "#fff";
-            style3.style.transition = "all 0.1s";
-        }if(!check3.checked){
-            var style3 = document.getElementById('matters3');
-            style3.style.color = "rgb(0, 0, 0)";
-            style3.style.backgroundColor = "#fff";
-        }
-        if(check4.checked){
-            var style4 = document.getElementById('matters4');
-            style4.style.backgroundColor = "rgb(255, 92, 92)";
-            style4.style.color = "#fff";
-            style4.style.transition = "all 0.1s";
-        }if(!check4.checked){
-            var style4 = document.getElementById('matters4');
-            style4.style.color = "rgb(0, 0, 0)";
-            style4.style.backgroundColor = "#fff";
-        }
-    }
-    setInterval(function(){
-        checkIt();
-    },100);
-
-    function postForm(){
-        var tform1= document.getElementById("Applicant-box");
-        var tform2= document.getElementById("beiApplicant-box");
-        var tform3= document.getElementById("matters-box");
-        var tform4= document.getElementById("fact-box");
-        tform1.submit();
-        tform2.submit();
-        tform3.submit();
-        tform4.submit();
-    }
-</script>
-
 <body>
-    <div class="hint">请填写申报信息</div>
-    <div class="title">人身安全保护令申请书</div>
-    <div class="nav">
-        <div class="applicant">申请人信息</div>
-        <button onclick="getBirth()" class="tianchong">自动填充</button>
-        <!-- <button class="tianchong">自动填充</button> -->
-        <form action="post.php" method="post" id="Applicant-box">
-            <input placeholder="姓名" type="text" name="Name"><br>
-            性别：<input type="radio" name="sex" value="0"  class="sex">女
-            <input type="radio" name="sex" value="1" class="sex">男<br>
-            <br><input placeholder="身份证号码" type="number" name="idNum" id="idCard1"><br>
-            <br><input placeholder="住所" type="text" name="address" ><br>
-            <br><input placeholder="联系电话" type="number" name="phoneNum" ><br>
-            <br><input type="text" class="birth" name="year" id="year1">年 <input type="text" class="birth" name="month" id="month1">月 <input type="text" class="birth" name="day" id="day1">日<br>
-        </form>
-    </div>
-
-    <div class="nav">
-        <div class="applicant">被申请人信息</div>
-        <button onclick="getBirth2()" class="tianchong2">自动填充</button>
-        <!-- <button class="tianchong2">自动填充</button> -->
-        <form action="post.php" method="post" id="beiApplicant-box">
-            <input placeholder="姓名" type="text" name="Name2"><br>
-            性别：<input type="radio" name="sex2" value="0"  class="sex">女
-            <input type="radio" name="sex2" value="1" class="sex">男<br>
-            <br><input placeholder="身份证号码" type="number" name="idNum2" id="idCard2"><br>
-            <br><input placeholder="住所" type="text" name="address2" ><br>
-            <br><input placeholder="联系电话" type="number" name="phoneNum2" ><br>
-            <br><input type="text" class="birth" name="year2" id="year2">年 <input type="text" class="birth" name="month2" id="month2">月 <input type="text" class="birth" name="day2" id="day2">日<br>
-        </form>
-    </div>
-
-    <div class="nav">
-        <div class="applicant">申请事项</div>
-        <form action="post.php" method="post" id="matters-box">
-            <div class="matters" id="matters1">
-                <label><input name="matter" type="checkbox" value="0" class="mattersBtn" id="Btn1"/>禁止被申请人实施家庭暴力</label><br>
-            </div>
-            <div class="matters" id="matters2">
-                <label><input name="matter" type="checkbox" value="1" class="mattersBtn" id="Btn2"/>禁止被申请人骚扰、跟踪申请人及其相关近亲属</label><br>
-            </div>
-            <div class="matters" id="matters3">
-                <label><input name="matter" type="checkbox" value="2" class="mattersBtn" id="Btn3"/>禁止被申请人接触申请人及其相关近亲属</label><br>
-            </div>
-            <div class="matters" id="matters4">
-                <label><input name="matter" type="checkbox" value="3" class="mattersBtn" id="Btn4"/>责令被申请人迁出申请人住所</label><br>
-            </div>
-            <textarea type="text" name="others" class="matters-text" placeholder="保护申请人人身安全的其他措施，由申请人填写"></textarea>
-        </form>
-    </div>
-
-    <div class="nav">
-        <div class="applicant">事实与理由</div>
-        <div class="hint">
-            该部分应说明申请人与被申请人具有家庭关系或共同生活关系，<br>例：2018年1月1日结婚且婚姻关系存续至今。
-        </div>
-        <form action="post.php" method="post" id="fact-box">
-            <textarea type="text" name="fact" class="fact" placeholder="请填写事实部分，点击下方按钮上传公民身份证正反面复印件"></textarea>
-            <input type="file" name="file" value="0" class="uploadBtn">
-            <br><br>
-            <div class="hint">
-                该部分描述申请人遭受家庭暴力或者面临家庭暴力的现实危险的情况。
-            </div>
-            <textarea type="text" name="reason" class="fact" placeholder="请填写理由部分，点击下方按钮上传证据，诸如伤照、就诊记录、报警证明、证人证言、视频、录音资料、社会机构的相关记录或证明、加害人保证书、加害人带有威胁内容的手机短信等等"></textarea>
-            <input type="file" name="file" value="1" class="uploadBtn">
-        </form> 
-    </div>
-    <button id="subBtn" onclick="postForm()">提 交</button>
+    
 </body>
 </html>
