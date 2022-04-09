@@ -4,57 +4,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://hammerjs.github.io/dist/hammer.js"></script>
     <title>Document</title>
-    <script language="JavaScript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript">
-       var windowHeight = $(window).height(),
-    　　$body = $("body");
-    　　$body.css("height", windowHeight); //重要代码
-    　　$("body").on("touchstart", function(e) {
-　　　　    e.preventDefault();
-    　　　　startX = e.originalEvent.changedTouches[0].pageX,
-    　　　　startY = e.originalEvent.changedTouches[0].pageY;
-    　　});
-    　　$("body").on("touchmove", function(e) {
-    　　　　e.preventDefault();
-    　　　　moveEndX = e.originalEvent.changedTouches[0].pageX,
-    　　　　moveEndY = e.originalEvent.changedTouches[0].pageY,
-    　　　　X = moveEndX - startX,
-    　　　　Y = moveEndY - startY;
-
-    　　　　if ( Math.abs(X) > Math.abs(Y) && X > 0 ) {
-    　　　　　　alert("left 2 right");
-    　　　　}
-    　　　　else if ( Math.abs(X) > Math.abs(Y) && X < 0 ) {
-    　　　　　　alert("right 2 left");
-    　　　　}
-    　　　　else if ( Math.abs(Y) > Math.abs(X) && Y > 0) {
-    　　　　　　alert("top 2 bottom");
-    　　　　}
-    　　　　else if ( Math.abs(Y) > Math.abs(X) && Y < 0 ) {
-    　　　　　　alert("bottom 2 top");
-    　　　　}
-    　　　　else{
-    　　　　　　alert("just touch");
-    　　　　}
-    　　});
-    </script>
 </head>
 
 
 <style>
-    body{
+    #test{
         width: 100%;
-        height: 100%;
-        background-color: aqua;
+        height: 800px;
+        background-color: rgb(255, 109, 109);
     }
-    * {
-        touch-action: pan-y;
-    }
-
 </style>
 
 <body>
-    
+    <div id="test" class="test">
+        针对前期已公开辟谣的“武警将接管上海社区”“明天上海暂停所有团购”两则虚假信息，相关部门已对多个传播谣言群组予以封停、个人用户予以处罚。
+    </div>
+    <script type="text/javascript">
+        var speaker = new window.SpeechSynthesisUtterance();
+        var speakTimer,
+            stopTimer;
+        //创建一个新的hammer对象并且在初始化时指定要处理的dom元素
+        var hammertime = new Hammer(document.getElementById("test"));
+        //为该dom元素指定触屏移动事件
+        hammertime.on("swipeleft", function (e) {
+            console.log("左滑");
+            var context = document.getElementById("test");
+            clearTimeout(speakTimer);
+            window.speechSynthesis.cancel();
+            speakTimer = setTimeout(function () {
+                speaker.volume = 1;
+                speaker.text = context.innerHTML;
+                window.speechSynthesis.speak(speaker);
+            }, 100);
+        });
+        hammertime.on("swiperight", function (e) {
+            console.log("右滑");
+            clearTimeout(stopTimer);
+            clearTimeout(speakTimer);
+            stopTimer = setTimeout(function () {
+                window.speechSynthesis.cancel();
+            }, 20);
+        });
+    </script>
 </body>
 </html>
