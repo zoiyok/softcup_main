@@ -7,11 +7,11 @@
     <title>Document</title>
     <script language="JavaScript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript">
-        var windowHeight = $(window).height(),
+       var windowHeight = $(window).height(),
     　　$body = $("body");
     　　$body.css("height", windowHeight); //重要代码
-        $("body").on("touchstart", function(e) {
-    　　　　e.preventDefault();
+    　　$("body").on("touchstart", function(e) {
+　　　　    e.preventDefault();
     　　　　startX = e.originalEvent.changedTouches[0].pageX,
     　　　　startY = e.originalEvent.changedTouches[0].pageY;
     　　});
@@ -21,7 +21,7 @@
     　　　　moveEndY = e.originalEvent.changedTouches[0].pageY,
     　　　　X = moveEndX - startX,
     　　　　Y = moveEndY - startY;
-    
+
     　　　　if ( Math.abs(X) > Math.abs(Y) && X > 0 ) {
     　　　　　　alert("left 2 right");
     　　　　}
@@ -38,7 +38,6 @@
     　　　　　　alert("just touch");
     　　　　}
     　　});
-    　　
     </script>
 </head>
 
@@ -49,6 +48,10 @@
         height: 100%;
         background-color: aqua;
     }
+    * {
+        touch-action: pan-y;
+    }
+
 </style>
 
 <body>
