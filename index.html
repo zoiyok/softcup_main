@@ -54,13 +54,8 @@
             //         document.getElementById("title").innerHTML = title;
             //     }
             // });
-            $.ajax({
-                url: root_url,
-                type: "GET",
-                success: function (data) {
-                    var content_html = data;
-                    document.getElementById("content").innerHTML = content_html;
-                }
+            $.get(root_url, (data) => {
+                console.log(data);
             });
         }
 
