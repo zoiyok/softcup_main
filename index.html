@@ -4,49 +4,117 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <!-- <script src="https://hammerjs.github.io/dist/hammer.js"></script> -->
     <title>Document</title>
 </head>
 
 
 <style>
-    #test{
+    #title{
         width: 100%;
-        height: 800px;
+        height: 100px;
+        background-color: #bfa;
+    }
+    .wrapper{
+        width: 100%;
+        height: 100%;
         background-color: rgb(255, 109, 109);
     }
 </style>
 
 <body>
-    <div id="test" class="test">
-        针对前期已公开辟谣的“武警将接管上海社区”“明天上海暂停所有团购”两则虚假信息，相关部门已对多个传播谣言群组予以封停、个人用户予以处罚。
+    <button id="change_btn">change</button>
+    <div class="wrapper">
+        <div id="title" class="title">
+            在华外资银行保险机构数量稳步增长 总资产逾5万亿元
+        </div>
+        <div id="content" class="content">
+            北京3月31日电 (记者 王恩博)随着中国金融业开放程度不断加深，越来越多外资机构来华展业。记者31日从中国银保监会了解到，外国银行保险机构在华机构数量呈现稳步增长，截至2020年末总资产合计逾5万亿元(人民币，下同)。近年来，银保监会加快推进银行业保险业形成更大范围、更宽领域、更深层次的全面开放新格局。2018年以来，该部门宣布了三轮共计34条对外开放新措施，涉及取消或放宽外资持股比例限制、放宽外资机构和业务准入条件、扩大外资机构业务范围、优化外资机构监管规则和简化行政许可流程等。2020年，银保监会积极推进对外开放落实工作，批准了一批重大外资行政许可事项，包括：批准第一家外方控股的理财公司汇华理财有限公司开业；批准贝莱德金融管理公司、建信理财有限责任公司和富登管理私人有限公司合资在上海市筹建贝莱德建信理财有限责任公司；批准香港友邦保险公司在内地分支机构改建为独资人寿保险子公司等。截至2020年末，外资银行在华共设立了41家外资法人银行、116家外国银行分行和144家代表处，营业性机构总数946家，外资银行总资产3.78万亿元。境外保险机构在华共设立了66家外资保险机构、117家代表处和17家保险专业中介机构，外资保险公司总资产1.71万亿元。2018年以来，银保监会共批准新设外资法人银行2家、外资分行30家。外资保险法人机构增加了10家，外资保险省级分公司增加了74家。银保监会透露，下一步将推进新发展格局下银行业保险业高水平对外开放，进一步完善银行业保险业外商投资准入前国民待遇加负面清单管理制度，优化监管规则，改善营商环境，积极支持在华外资银行保险机构发展。增强开放监管能力，防范金融风险。(完)
+        </div>
     </div>
     <script type="text/javascript">
-        var speaker = new window.SpeechSynthesisUtterance();
-        var speakTimer,
-            stopTimer;
-        //创建一个新的hammer对象并且在初始化时指定要处理的dom元素
-        var hammertime = new Hammer(document.getElementById("test"));
-        //为该dom元素指定触屏移动事件
-        hammertime.on("swipeleft", function (e) {
-            console.log("左滑");
-            var context = document.getElementById("test");
-            clearTimeout(speakTimer);
-            window.speechSynthesis.cancel();
-            speakTimer = setTimeout(function () {
-                speaker.volume = 1;
-                speaker.text = context.innerHTML;
-                window.speechSynthesis.speak(speaker);
-            }, 100);
-        });
-        hammertime.on("swiperight", function (e) {
-            console.log("右滑");
-            clearTimeout(stopTimer);
-            clearTimeout(speakTimer);
-            stopTimer = setTimeout(function () {
-                window.speechSynthesis.cancel();
-            }, 20);
-        });
+        window.onload = function () {
+            var url = "https://3g.163.com/news/article/H55HT5DL0001899O.html";
+            var root_url = "http://c.m.163.com/nc/article/headline/T1348647853363/0-40.html";
+            // $.ajax({
+            //     url: url,
+            //     type: "GET",
+            //     success: function (data) {
+            //         var content_html = data;
+            //         var title = $(content_html).find(".title").text();
+            //         var content_html_text = content_html.split('<p id="0Q');
+            //         var content_html_text_last = '';
+            //         for (var i = 1; i < content_html_text[i].length; i++) {
+            //             content_html_text_last = content_html_text_last+content_html_text[i].substring(8,content_html_text[i].length);
+            //         }
+            //         // var content_html_text_2 = content_html_text[2].substring(8,content_html_text[2].length);
+            //         // alert(content_html_text[1]);
+            //         document.getElementById("content").innerHTML = content_html_text_last;
+            //         document.getElementById("title").innerHTML = title;
+            //     }
+            // });
+            $.ajax({
+                url: root_url,
+                type: "GET",
+                success: function (data) {
+                    var content_html = data;
+                    document.getElementById("content").innerHTML = content_html;
+                }
+            });
+        }
+
+
+        // var speaker = new window.SpeechSynthesisUtterance();
+        // var speakTimer,
+        //     stopTimer;
+        // //创建一个新的hammer对象并且在初始化时指定要处理的dom元素
+        // var hammertime = new Hammer(document.getElementById("title"));
+        // var hammertime = new Hammer(document.getElementById("content"));
+        // //为该dom元素指定触屏移动事件
+        // hammertime.on("swipeleft", function (e) {
+        //     console.log("左滑");
+        //     var context = document.getElementById("title");
+        //     var context2 = document.getElementById("content");
+        //     clearTimeout(speakTimer);
+        //     window.speechSynthesis.cancel();
+        //     speakTimer = setTimeout(function () {
+        //         speaker.volume = 1;
+        //         speaker.text = context.innerHTML;
+        //         window.speechSynthesis.speak(speaker);
+        //     }, 100);
+            
+        //     window.speechSynthesis.cancel();
+        //     speakTimer = setTimeout(function () {
+        //         speaker.volume = 1;
+        //         speaker.text = context2.innerHTML;
+        //         window.speechSynthesis.speak(speaker);
+        //     }, 100);
+        // });
+        // hammertime.on("swiperight", function (e) {
+        //     console.log("右滑");
+        //     clearTimeout(stopTimer);
+        //     clearTimeout(speakTimer);
+        //     stopTimer = setTimeout(function () {
+        //         window.speechSynthesis.cancel();
+        //     }, 20);
+        // });
+        // // swipe up
+        // hammertime.on("swipeup", function (e) {
+        //     console.log("上滑");
+        //     var context = document.getElementById("title");
+        //     clearTimeout(speakTimer);
+        //     window.speechSynthesis.cancel();
+        //     speakTimer = setTimeout(function () {
+        //         speaker.volume = 1;
+        //         speaker.text = context.innerHTML;
+        //         window.speechSynthesis.speak(speaker);
+        //     }, 100);
+        // });
+
+
     </script>
 </body>
 </html>
+
+
